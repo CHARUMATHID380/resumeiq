@@ -1,0 +1,171 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ResumeIQ — Premium Indigo Aurora design system */
+
+@theme inline {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sora", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+}
+
+:root {
+  --radius: 0.9rem;
+
+  /* Indigo → Violet Aurora on deep slate */
+  --background: oklch(0.16 0.03 265);
+  --foreground: oklch(0.98 0.005 260);
+  --surface-1: oklch(0.22 0.035 265);
+  --surface-2: oklch(0.27 0.04 265);
+
+  --card: oklch(0.22 0.035 265);
+  --card-foreground: oklch(0.98 0.005 260);
+  --popover: oklch(0.22 0.035 265);
+  --popover-foreground: oklch(0.98 0.005 260);
+
+  /* #6366F1 indigo */
+  --primary: oklch(0.62 0.20 280);
+  --primary-foreground: oklch(0.99 0 0);
+  /* #8B5CF6 violet */
+  --accent: oklch(0.66 0.22 300);
+  --accent-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.30 0.04 270);
+  --secondary-foreground: oklch(0.98 0.005 260);
+  --muted: oklch(0.28 0.03 270);
+  --muted-foreground: oklch(0.74 0.02 265);
+
+  --success: oklch(0.72 0.18 152);
+  --warning: oklch(0.78 0.16 75);
+  --danger: oklch(0.65 0.22 22);
+  --destructive: oklch(0.62 0.24 22);
+  --destructive-foreground: oklch(0.99 0 0);
+
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.66 0.22 300);
+
+  /* Signature gradients */
+  --grad-primary: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+  --grad-primary-soft: linear-gradient(135deg, rgba(99,102,241,0.9), rgba(139,92,246,0.9));
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body { font-family: var(--font-sans); }
+  body {
+    background:
+      radial-gradient(1100px 700px at 50% -10%, rgba(99,102,241,0.18), transparent 60%),
+      radial-gradient(900px 600px at 100% 100%, rgba(139,92,246,0.14), transparent 60%),
+      radial-gradient(ellipse at center, #0F172A 0%, #020817 80%);
+    color: var(--color-foreground);
+    min-height: 100vh;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
+}
+
+/* Utilities */
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+  }
+
+  .hero-gradient { background: var(--grad-primary); }
+
+  .text-gradient {
+    background: var(--grad-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .shadow-glow {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.35);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .shadow-glow:hover {
+    box-shadow: 0 0 28px rgba(139, 92, 246, 0.55);
+  }
+
+  /* Aurora animated background */
+  .aurora {
+    position: absolute;
+    inset: -20%;
+    z-index: 0;
+    pointer-events: none;
+    filter: blur(80px);
+    opacity: 0.5;
+    overflow: hidden;
+  }
+  .aurora::before,
+  .aurora::after {
+    content: "";
+    position: absolute;
+    width: 55%;
+    height: 55%;
+    border-radius: 50%;
+    opacity: 0.35;
+    mix-blend-mode: screen;
+  }
+  .aurora::before {
+    background: radial-gradient(circle, #6366F1 0%, transparent 70%);
+    top: 5%;
+    left: 10%;
+    animation: aurora-a 18s ease-in-out infinite alternate;
+  }
+  .aurora::after {
+    background: radial-gradient(circle, #8B5CF6 0%, transparent 70%);
+    bottom: 5%;
+    right: 5%;
+    animation: aurora-b 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes aurora-a {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(15%, 10%) scale(1.15); }
+    100% { transform: translate(-10%, 20%) scale(0.95); }
+  }
+  @keyframes aurora-b {
+    0%   { transform: translate(0, 0) scale(1); }
+    50%  { transform: translate(-20%, -10%) scale(1.2); }
+    100% { transform: translate(10%, -20%) scale(1); }
+  }
+}
